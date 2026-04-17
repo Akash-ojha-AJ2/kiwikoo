@@ -1,0 +1,877 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-cream: #F9F8F4;
+  --color-charcoal: #1C1C1C;
+  --color-peach: #FF8C69;
+  --color-subtle: #E5E0D8;
+  --font-serif: var(--font-playfair);
+  /* KIWIKOO landing */
+  --color-kblack: var(--kblack);
+  --color-kbg: var(--kbg);
+  --color-kborder: var(--kborder);
+  --color-kstrongborder: var(--kstrongborder);
+  --color-ktext: var(--ktext);
+  --color-kcoral: var(--kcoral);
+  --color-kkiwi: var(--kkiwi);
+  --color-kpurple: var(--kpurple);
+  --font-sans-landing: var(--font-plus-jakarta-sans), ui-sans-serif, sans-serif;
+}
+
+.kiwikoo-wordmark {
+  font-family: var(--font-bungee), "Arial Black", Impact, sans-serif;
+  letter-spacing: 0.015em;
+  line-height: 0.95;
+  text-transform: none;
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+  /* Neo-brutal landing */
+  --brutal-border: 4px solid #000;
+  --brutal-shadow: 8px 8px 0 0 #000;
+  --brutal-shadow-sm: 4px 4px 0 0 #000;
+  --brutal-cream: #F9F8F4;
+  --brutal-coral: #FF8C69;
+  --brutal-lime: #B4F056;
+  /* KIWIKOO landing (design spec) */
+  --kblack: #111111;
+  --kbg: #faf9f6;
+  --kborder: #e5e5e5;
+  --kstrongborder: #111111;
+  --ktext: #111111;
+  --kcoral: #ff8a73;
+  --kkiwi: #caff33;
+  --kpurple: #d8b4fe;
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+/* KIWIKOO landing – grid overlay & structural borders */
+.grid-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image:
+    linear-gradient(to right, rgba(17, 17, 17, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(17, 17, 17, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 40;
+}
+.grid-line-x { border-bottom: 1px solid rgba(17, 17, 17, 0.1); }
+.grid-line-y { border-right: 1px solid rgba(17, 17, 17, 0.1); }
+.grid-line-t { border-top: 1px solid rgba(17, 17, 17, 0.1); }
+.border-strong-b { border-bottom: 2px solid var(--kblack); }
+.border-strong-t { border-top: 2px solid var(--kblack); }
+.neo-btn {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.neo-btn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 rgba(17, 17, 17, 1) !important;
+}
+
+.hero-bg-image {
+  background-image: url('https://images.unsplash.com/photo-1529139574466-a303027c028c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+  background-size: cover;
+  background-position: center 20%;
+}
+
+.footer-bg-image {
+  background-image: url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+  background-size: cover;
+  background-position: center;
+  /* iOS Safari doesn't support background-attachment:fixed on non-body elements */
+  background-attachment: scroll;
+}
+
+@media (min-width: 768px) {
+  .footer-bg-image {
+    background-attachment: fixed;
+  }
+}
+
+/* Landing transparent stacking so K knockout blends with #global-bg */
+html.landing-transparent-bg,
+body.landing-transparent-bg {
+  background-color: transparent !important;
+}
+
+.landing-main-wrapper {
+  background-color: transparent !important;
+}
+
+.landing-main-wrapper,
+.landing-main-wrapper *,
+.landing-main-wrapper *::before,
+.landing-main-wrapper *::after {
+  box-sizing: border-box;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #faf9f6; }
+::-webkit-scrollbar-thumb { background: #d1d1d1; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #111111; }
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  #global-bg { transform: none !important; }
+  .reveal-word { opacity: 1 !important; }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ============================================
+   ANIMATION UTILITIES
+   ============================================ */
+
+/* Shimmer Animation for Skeletons */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(90deg,
+      rgba(0, 0, 0, 0.06) 25%,
+      rgba(0, 0, 0, 0.12) 50%,
+      rgba(0, 0, 0, 0.06) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite ease-in-out;
+}
+
+.dark .skeleton-shimmer {
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0.06) 25%,
+      rgba(255, 255, 255, 0.12) 50%,
+      rgba(255, 255, 255, 0.06) 75%);
+  background-size: 200% 100%;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Slide Up Animation */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Scale Fade Animation */
+@keyframes scaleFade {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-scale-fade {
+  animation: scaleFade 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Spin Animation (for loading) */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin 1.5s linear infinite;
+}
+
+/* Bounce Animation */
+@keyframes bounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce-soft {
+  animation: bounce 1s ease-in-out infinite;
+}
+
+/* Smooth Transitions for Interactive Elements */
+.transition-interactive {
+  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Card Hover Effect */
+.hover-lift {
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15);
+}
+
+/* Image Load Animation */
+.image-loading {
+  filter: blur(10px);
+  transition: filter 0.3s ease-out;
+}
+
+.image-loaded {
+  filter: blur(0);
+}
+
+/* ============================================
+   GLOBAL PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+
+/* GPU acceleration for all animated elements */
+.transform-gpu {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Faster default transitions */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a,
+button {
+  touch-action: manipulation;
+}
+
+/* Smooth page content */
+main {
+  animation: pageIn 0.3s ease-out;
+}
+
+/* Opacity only — transform on main would create a containing block and break position:fixed modals/toasts inside main */
+@keyframes pageIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Sonner: pin default region to top-right (mobile sheet layout can feel “bottom” otherwise) */
+[data-sonner-toaster][data-y-position="top"] {
+  top: max(12px, env(safe-area-inset-top, 0px)) !important;
+  bottom: auto !important;
+}
+
+[data-sonner-toaster][data-x-position="right"] {
+  right: max(8px, env(safe-area-inset-right, 0px)) !important;
+  left: auto !important;
+}
+
+/* Blob cursor styles are injected dynamically via GlobalBlobCursor component */
+
+/* Loading progress bar animation */
+@keyframes progressBar {
+  0% {
+    width: 0%;
+  }
+
+  50% {
+    width: 70%;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+.loading-bar {
+  animation: progressBar 0.8s ease-out forwards;
+}
+
+/* Quick button feedback */
+button:active,
+a:active,
+[role="button"]:active {
+  transform: scale(0.98);
+}
+
+/* ============================================
+   MOBILE RESPONSIVENESS & CROSS-PLATFORM
+   ============================================ */
+
+/* Safe area insets for notched devices (iPhone X+, etc) */
+:root {
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-left: env(safe-area-inset-left, 0px);
+  --safe-area-right: env(safe-area-inset-right, 0px);
+}
+
+/* Apply safe areas to body */
+body {
+  padding-top: var(--safe-area-top);
+  padding-bottom: var(--safe-area-bottom);
+  padding-left: var(--safe-area-left);
+  padding-right: var(--safe-area-right);
+}
+
+/* Smooth scrolling globally */
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent horizontal scrolling on mobile */
+body {
+  overflow-x: hidden;
+  min-height: 100dvh;
+  /* Dynamic viewport height for mobile browsers */
+}
+
+/* ============================================
+   REDUCED MOTION SUPPORT (Accessibility)
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-fade-in,
+  .animate-slide-up,
+  .animate-scale-fade,
+  .animate-spin-slow,
+  .animate-bounce-soft {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ============================================
+   LOW-END DEVICE OPTIMIZATIONS
+   ============================================ */
+
+/* Detect low-end devices and simplify animations */
+@media (max-width: 640px) {
+
+  /* Shorter animations on mobile for snappier feel */
+  .animate-fade-in {
+    animation-duration: 0.2s;
+  }
+
+  .animate-slide-up {
+    animation-duration: 0.25s;
+  }
+
+  .animate-scale-fade {
+    animation-duration: 0.2s;
+  }
+
+  /* Smaller transforms on mobile */
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px -6px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Reduce complex shadows on mobile */
+  .shadow-lg {
+    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* ============================================
+   TOUCH OPTIMIZATION
+   ============================================ */
+
+/* Minimum touch target size (44x44px per Apple HIG) */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Better tap feedback */
+@media (hover: none) and (pointer: coarse) {
+
+  /* Touch devices only */
+  button,
+  a,
+  [role="button"],
+  input[type="button"],
+  input[type="submit"] {
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  }
+
+  /* Faster touch feedback */
+  button:active,
+  a:active,
+  [role="button"]:active {
+    transform: scale(0.97);
+    transition: transform 0.1s ease-out;
+  }
+}
+
+/* ============================================
+   MOBILE SPACING UTILITIES
+   ============================================ */
+
+/* Responsive container padding */
+.container-mobile {
+  padding-left: max(1rem, var(--safe-area-left));
+  padding-right: max(1rem, var(--safe-area-right));
+}
+
+@media (min-width: 640px) {
+  .container-mobile {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-mobile {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* ============================================
+   GPU ACCELERATION FOR SMOOTH ANIMATIONS
+   ============================================ */
+
+/* Use GPU for frequently animated elements */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Card and interactive element optimizations */
+.card,
+.rounded-2xl,
+[class*="hover:scale"] {
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Image rendering optimization */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  -webkit-user-drag: none;
+}
+
+/* ============================================
+   MOBILE-FIRST GRID ALIGNMENT FIXES
+   ============================================ */
+
+/* Ensure grids don't overflow on mobile */
+.grid {
+  max-width: 100%;
+}
+
+/* Better grid gaps for mobile */
+@media (max-width: 640px) {
+  .grid {
+    gap: 0.75rem;
+  }
+
+  /* Smaller rounded corners on mobile for more content space */
+  .rounded-2xl {
+    border-radius: 1rem;
+  }
+
+  /* Tighter padding on mobile cards */
+  .p-6 {
+    padding: 1rem;
+  }
+}
+
+/* ============================================
+   CROSS-BROWSER SCROLLBAR STYLING
+   ============================================ */
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+/* ============================================
+   PERFORMANCE CONTAINMENT
+   ============================================ */
+
+/* Contain complex layouts for better rendering */
+.contain-layout {
+  contain: layout style;
+}
+
+.contain-paint {
+  contain: paint;
+}
+
+/* Full containment for heavy components */
+.contain-strict {
+  contain: strict;
+}
+
+/* ============================================
+   SCROLL PERFORMANCE OPTIMIZATION
+   ============================================ */
+
+/* Instant scrolling - no smooth behavior delay */
+html {
+  scroll-behavior: auto;
+  /* Changed from 'smooth' to 'auto' for instant scroll */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* GPU layer promotion for sections during scroll */
+section {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: scroll-position;
+}
+
+/* Optimize sticky/fixed elements for scroll */
+[class*="sticky"],
+[class*="fixed"] {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Reduce repaint on large blurred backgrounds */
+[class*="blur-"] {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  will-change: filter;
+}
+
+/* Optimize scroll containers */
+.overflow-y-auto,
+.overflow-x-auto,
+[class*="overflow"] {
+  -webkit-overflow-scrolling: touch;
+  transform: translateZ(0);
+}
+
+/* Reduce layout thrashing during scroll */
+body {
+  contain: none;
+}
+
+/* Optimize images during scroll */
+img {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 300px;
+}
+
+/* ============================================
+   SVG DRAWING LOADER ANIMATION
+   ============================================ */
+
+.svg-drawing-loader {
+  width: 16em;
+  height: 16em;
+}
+
+.svg-drawing-loader path {
+  stroke: #1C1C1C;
+  stroke-width: 0.6px;
+  fill: none;
+  animation: dashArray 4s ease-in-out infinite,
+    dashOffset 4s linear infinite;
+}
+
+@keyframes dashArray {
+  0% {
+    stroke-dasharray: 0 1 359 0;
+  }
+
+  50% {
+    stroke-dasharray: 0 359 1 0;
+  }
+
+  100% {
+    stroke-dasharray: 359 1 0 0;
+  }
+}
+
+@keyframes dashOffset {
+  0% {
+    stroke-dashoffset: 365;
+  }
+
+  100% {
+    stroke-dashoffset: 5;
+  }
+}
+
+/* ========================================
+   ONBOARDING LAYOUT - Hide Navbar
+   ======================================== */
+.onboarding-wrapper {
+  position: relative;
+  z-index: 50;
+}
+
+/* Hide navbar when onboarding layout is active */
+body:has(.onboarding-wrapper) nav,
+body:has(.onboarding-wrapper) header,
+body:has(.onboarding-wrapper) .brutal-navbar {
+  display: none !important;
+}
+
+/* Reset main element spacing in onboarding */
+body:has(.onboarding-wrapper) main {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Custom scrollbar for onboarding */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* ========================================
+   PERFORMANCE OPTIMIZED ANIMATIONS
+   ======================================== */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-slow-reverse {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes bounce-slow {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+.animate-spin-slow-reverse {
+  animation: spin-slow-reverse 15s linear infinite;
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 4s ease-in-out infinite;
+}

@@ -1,0 +1,265 @@
+{
+  "version": 2,
+  "recipes": [
+    {
+      "id": "iphone_candid_street_day",
+      "tags": {
+        "capture_type": "iphone_candid",
+        "lighting_type": "diffused_daylight",
+        "location_type": "city_street",
+        "time_of_day": "day",
+        "vibe": "natural_candid"
+      },
+      "camera": {
+        "lens_hint": "iPhone main camera (26mm equivalent, f/1.8)",
+        "pov_hint": "handheld at chest-to-eye height, natural perspective",
+        "framing_hint": "casual off-center framing, slight tilt acceptable (2-5 degrees)",
+        "dof_hint": "deep DOF typical of smartphone (f/1.8 small sensor = deeper focus than DSLR)"
+      },
+      "imperfections": {
+        "grain": "subtle digital noise (ISO 100-400), visible in shadows and midtones, fine texture not chunky",
+        "compression": "HEIC/JPEG compression visible at 100% zoom, slight sharpening halos around edges",
+        "vignette": "none to very subtle natural corner falloff",
+        "chromatic_aberration": "minimal purple fringing on high-contrast edges (typical of smartphone lens)",
+        "handheld_tilt_ok": true,
+        "motion_blur_hint": "none to minimal micro-shake blur"
+      },
+      "scene_template": "A natural candid street photo: subject on sidewalk or cafe terrace, urban context visible. Real textures: weathered stone, scuffed paint, concrete pores, brick detail. Natural shadows and highlights from diffused daylight.",
+      "negative_template": "No neon/cyberpunk grading, no wet streets without rain, no heavy glow/bloom, no plastic skin, no painterly/smeary backgrounds, no perfect bokeh circles, no CGI-clean surfaces, no studio lighting outdoors."
+    },
+    {
+      "id": "iphone_candid_cafe_shade",
+      "tags": {
+        "capture_type": "iphone_candid",
+        "lighting_type": "open_shade_daylight",
+        "location_type": "cafe_terrace",
+        "time_of_day": "day",
+        "vibe": "travel_journal"
+      },
+      "camera": {
+        "lens_hint": "iPhone main camera (26mm equivalent, f/1.8)",
+        "pov_hint": "seated eye level, across table perspective",
+        "framing_hint": "intimate framing, slight casual tilt, some table/foreground elements",
+        "dof_hint": "deep to moderate DOF, background context visible but slightly softer"
+      },
+      "imperfections": {
+        "grain": "subtle digital noise (ISO 50-200), clean but not synthetic",
+        "compression": "light HEIC compression artifacts",
+        "vignette": "none",
+        "chromatic_aberration": "minimal",
+        "handheld_tilt_ok": true,
+        "motion_blur_hint": "none"
+      },
+      "scene_template": "A cafe terrace in open shade: rustic wood tables, weathered chairs, stone or brick wall, potted plants or vines. Soft natural light with gentle shadows. Preserve wood grain, stone texture, plant detail.",
+      "negative_template": "No CGI glow, no over-smooth surfaces, no perfect symmetry. Keep real-world wear and patina on furniture and walls."
+    },
+    {
+      "id": "dslr_portrait_outdoor_day",
+      "tags": {
+        "capture_type": "dslr_portrait",
+        "lighting_type": "natural_daylight",
+        "location_type": "outdoor_general",
+        "time_of_day": "day",
+        "vibe": "editorial_natural"
+      },
+      "camera": {
+        "lens_hint": "50mm or 85mm prime lens, f/2.8-f/4 aperture",
+        "pov_hint": "eye level, steady handheld or tripod",
+        "framing_hint": "subject-centered or rule-of-thirds, clean composition",
+        "dof_hint": "moderate bokeh (f/2.8-f/4), background soft but texture visible through blur"
+      },
+      "imperfections": {
+        "grain": "fine film-like grain (ISO 200-400), organic texture throughout",
+        "compression": "minimal (high quality RAW-to-JPEG)",
+        "vignette": "subtle natural lens vignette (0.5-1 stop at corners)",
+        "chromatic_aberration": "very subtle CA on extreme contrast edges",
+        "handheld_tilt_ok": false,
+        "motion_blur_hint": "none"
+      },
+      "scene_template": "An outdoor portrait setting: park, street, urban environment. Natural lighting with soft shadows. Background has environmental detail visible through bokeh - not a blur wall but textured soft shapes.",
+      "negative_template": "No gaussian blur backgrounds, no perfect bokeh circles (should be slightly imperfect/cat-eye at edges), no HDR glow, no plastic skin."
+    },
+    {
+      "id": "film_35mm_afternoon",
+      "tags": {
+        "capture_type": "film_35mm",
+        "lighting_type": "diffused_afternoon",
+        "location_type": "terrace",
+        "time_of_day": "afternoon",
+        "vibe": "timeless_editorial"
+      },
+      "camera": {
+        "lens_hint": "50mm lens (Contax T2 / Leica M style), f/2-f/4",
+        "pov_hint": "steady, considered composition",
+        "framing_hint": "clean geometric framing, gentle negative space",
+        "dof_hint": "moderate bokeh with characteristic film lens rendering (swirly/busy bokeh possible)"
+      },
+      "imperfections": {
+        "grain": "visible 35mm film grain (Kodak Portra 400 / Fuji 400H style), organic clusters not digital noise",
+        "compression": "none (film scan aesthetic)",
+        "vignette": "subtle film vignette (1-2 stops at extreme corners)",
+        "chromatic_aberration": "slight color fringing typical of vintage lenses",
+        "handheld_tilt_ok": false,
+        "motion_blur_hint": "none"
+      },
+      "scene_template": "Sun-dappled terrace or outdoor setting with tactile textures: wicker, stone, plaster, plants. Warm afternoon light with long gentle shadows. Film color palette: slightly lifted blacks, gentle highlight rolloff.",
+      "negative_template": "No digital HDR glow, no plastic surfaces, no AI-smooth backgrounds. Keep restrained, natural filmic tonality."
+    },
+    {
+      "id": "flash_party_night",
+      "tags": {
+        "capture_type": "flash_digicam",
+        "lighting_type": "on_camera_flash",
+        "location_type": "indoor_night",
+        "time_of_day": "night",
+        "vibe": "flash_party"
+      },
+      "camera": {
+        "lens_hint": "compact camera flash (28-35mm equivalent, small aperture from flash)",
+        "pov_hint": "handheld, close to subject (1-2 meters)",
+        "framing_hint": "imperfect cropping, slightly tilted framing acceptable",
+        "dof_hint": "deep DOF from flash (everything relatively sharp)"
+      },
+      "imperfections": {
+        "grain": "heavy noise in shadow areas (ISO 800-1600 pushed), visible color noise",
+        "compression": "moderate JPEG artifacts (early digicam aesthetic)",
+        "vignette": "flash falloff creates natural vignette",
+        "chromatic_aberration": "visible on flash reflections",
+        "handheld_tilt_ok": true,
+        "motion_blur_hint": "slight motion blur in background acceptable"
+      },
+      "scene_template": "Night scene lit by harsh on-camera flash: subject well-lit, background falls off quickly into darkness. Realistic falloff and contrast. Background should be plausible (club, street, party venue) with visible texture.",
+      "negative_template": "No surreal neon glow, no foggy atmosphere without context. Keep textures crisp, no painterly blur. Flash should look like actual flash, not studio lighting."
+    },
+    {
+      "id": "golden_hour_portrait",
+      "tags": {
+        "capture_type": "iphone_candid",
+        "lighting_type": "golden_hour",
+        "location_type": "outdoor_general",
+        "time_of_day": "golden_hour",
+        "vibe": "warm_natural"
+      },
+      "camera": {
+        "lens_hint": "iPhone main camera (26mm equivalent)",
+        "pov_hint": "standing height, natural perspective",
+        "framing_hint": "subject-focused with environmental context",
+        "dof_hint": "moderate DOF, background softly falls off"
+      },
+      "imperfections": {
+        "grain": "light smartphone noise, visible in shadows",
+        "compression": "standard phone processing",
+        "vignette": "none to subtle",
+        "chromatic_aberration": "slight purple fringing from backlight",
+        "handheld_tilt_ok": true,
+        "motion_blur_hint": "none"
+      },
+      "scene_template": "Golden hour outdoor portrait: warm low-angle sunlight creating long shadows, natural rim lighting on subject. Background has warm atmospheric falloff. Sky gradients should be natural, not oversaturated.",
+      "negative_template": "No overdone orange/yellow grading. Keep golden light realistic and plausible. No AI-smooth skin or fake lens flare."
+    },
+    {
+      "id": "overcast_street",
+      "tags": {
+        "capture_type": "dslr_portrait",
+        "lighting_type": "overcast",
+        "location_type": "city_street",
+        "time_of_day": "day",
+        "vibe": "moody_editorial"
+      },
+      "camera": {
+        "lens_hint": "50mm or 85mm lens, f/2.8",
+        "pov_hint": "eye level, slightly elevated",
+        "framing_hint": "environmental portrait, subject with urban context",
+        "dof_hint": "moderate bokeh, urban elements visible through blur"
+      },
+      "imperfections": {
+        "grain": "film-like grain (ISO 400-800), visible throughout",
+        "compression": "minimal",
+        "vignette": "subtle lens vignette",
+        "chromatic_aberration": "slight on high-contrast edges",
+        "handheld_tilt_ok": false,
+        "motion_blur_hint": "none"
+      },
+      "scene_template": "Urban street on overcast day: soft even lighting, muted colors, wet pavement acceptable if recent rain context. City elements (buildings, signage shapes, cars) visible in background. Moody but realistic atmosphere.",
+      "negative_template": "No dramatic neon reflections without source, no cyberpunk grading. Keep it grounded and realistic. Wet streets only if rain context is plausible."
+    },
+    {
+      "id": "indoor_window_light",
+      "tags": {
+        "capture_type": "dslr_portrait",
+        "lighting_type": "window_light",
+        "location_type": "indoor",
+        "time_of_day": "day",
+        "vibe": "soft_editorial"
+      },
+      "camera": {
+        "lens_hint": "50mm or 35mm lens, f/2-f/2.8",
+        "pov_hint": "seated or standing, natural indoor perspective",
+        "framing_hint": "intimate framing with some interior context",
+        "dof_hint": "shallow to moderate DOF, background interior elements soft"
+      },
+      "imperfections": {
+        "grain": "subtle grain (ISO 400-800 for indoor light), visible in shadows",
+        "compression": "minimal",
+        "vignette": "subtle natural vignette",
+        "chromatic_aberration": "minimal",
+        "handheld_tilt_ok": false,
+        "motion_blur_hint": "none"
+      },
+      "scene_template": "Indoor portrait near window: soft directional light from window, gentle shadow falloff on face. Interior context visible (furniture, walls, plants). Natural indoor atmosphere.",
+      "negative_template": "No studio lighting look, no heavy rim lights. Keep it natural window light aesthetic. Preserve indoor textures and surfaces."
+    },
+    {
+      "id": "park_natural_light",
+      "tags": {
+        "capture_type": "iphone_candid",
+        "lighting_type": "dappled_shade",
+        "location_type": "park",
+        "time_of_day": "day",
+        "vibe": "natural_casual"
+      },
+      "camera": {
+        "lens_hint": "iPhone main camera (26mm equivalent)",
+        "pov_hint": "handheld walking height",
+        "framing_hint": "candid casual framing, subject with natural environment",
+        "dof_hint": "deep DOF, background trees/paths visible"
+      },
+      "imperfections": {
+        "grain": "subtle smartphone noise",
+        "compression": "standard phone processing",
+        "vignette": "none",
+        "chromatic_aberration": "minimal",
+        "handheld_tilt_ok": true,
+        "motion_blur_hint": "slight movement acceptable"
+      },
+      "scene_template": "Park or garden setting: trees, paths, grass, benches. Dappled light through leaves creating natural pattern of light and shadow. Keep foliage texture visible - individual leaves, not smeared green.",
+      "negative_template": "No fake volumetric light rays, no over-edited HDR look. Keep natural and casual. Preserve texture in foliage and ground."
+    },
+    {
+      "id": "studio_minimal",
+      "tags": {
+        "capture_type": "studio_portrait",
+        "lighting_type": "studio_soft",
+        "location_type": "studio",
+        "time_of_day": "indoor",
+        "vibe": "clean_editorial"
+      },
+      "camera": {
+        "lens_hint": "85mm or 105mm lens, f/4-f/5.6",
+        "pov_hint": "tripod, eye level or slightly above",
+        "framing_hint": "clean centered framing, minimal negative space",
+        "dof_hint": "sharp subject, seamless background"
+      },
+      "imperfections": {
+        "grain": "very subtle grain (ISO 100-200), clean but not synthetic",
+        "compression": "minimal",
+        "vignette": "none to very subtle",
+        "chromatic_aberration": "none",
+        "handheld_tilt_ok": false,
+        "motion_blur_hint": "none"
+      },
+      "scene_template": "Clean studio portrait: neutral or gradient background, soft professional lighting (softbox/umbrella look). Subject well-lit with gentle shadows. Studio aesthetic but skin texture preserved.",
+      "negative_template": "No heavy beauty retouching, no plastic skin. Keep natural skin texture visible. No harsh shadows or unflattering angles."
+    }
+  ]
+}

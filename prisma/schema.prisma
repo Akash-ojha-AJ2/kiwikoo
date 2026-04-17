@@ -1,0 +1,368 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  ADMIN
+  INFLUENCER
+  BRAND
+}
+
+enum AccountStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  SUSPENDED
+}
+
+model User {
+  id        String        @id // UUID from Supabase Auth
+  email     String        @unique
+  name      String?
+  role      UserRole
+  status    AccountStatus @default(PENDING) @map("approval_status")
+  slug      String?       @unique
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  
+  influencerProfile     InfluencerProfile?
+  brandProfile          BrandProfile?
+  profileImages         UserProfileImage[]
+  generationJobs        GenerationJob[]
+  campaigns             Campaign[]
+  adCreatives           AdCreative[]
+  portfolio             Portfolio[]
+  notifications         Notification[]
+  sentCollaborations    CollaborationRequest[] @relation("BrandCollaborations")
+  receivedCollaborations CollaborationRequest[] @relation("InfluencerCollaborations")
+  favorites             Favorite[]
+
+  @@map("profiles")
+  @@index([role])
+  @@index([email])
+}
+
+model UserProfileImage {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Supabase Storage path + public URL (for UI display)
+  imagePath String
+  imageUrl  String
+
+  label     String?
+  isPrimary Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([userId, isPrimary])
+}
+
+model InfluencerProfile {
+  id                String   @id @default(cuid())
+  userId            String   @unique
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bio               String?  @db.Text
+  niches            Json     // Array of strings
+  socials           Json     // Object with platform links
+  pricePerPost      Decimal? @db.Decimal(10, 2)
+  affiliateCode     String?  @unique
+  portfolioVisibility Boolean @default(true)
+  followers         Int?     @default(0)
+  audienceRate      Decimal? @db.Decimal(5, 2) // Monthly follower growth %
+  retentionRate     Decimal? @db.Decimal(5, 2) // Content retention %
+  badgeTier         String?  // "platinum" | "gold" | "silver"
+  badgeScore        Decimal? @db.Decimal(5, 2) // 0-100 ranking score
+  gender            String?  // "Male" | "Female" | "Other"
+  audienceType      Json?    // Array of audience types (Men, Women, Unisex, Kids)
+  preferredCategories Json?  // Array of clothing categories
+  onboardingCompleted Boolean @default(false)
+  engagementRate    Decimal? @db.Decimal(5, 4) // For sorting/filtering
+  identitySetupComplete Boolean @default(false) // Has uploaded all identity images
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  payouts           Payout[]
+  affiliateEvents   AffiliateEvent[]
+  identityImages    IdentityImage[]  // Reference images for AI try-on
+  trackedLinks      TrackedLink[]   // Masked links for product tracking
+
+  @@index([userId])
+  @@index([portfolioVisibility, onboardingCompleted])
+  @@index([gender])
+  @@index([followers])
+  @@index([engagementRate])
+  @@index([badgeTier])
+  @@index([badgeScore])
+}
+
+model BrandProfile {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyName String
+  website     String?
+  vertical    String?
+  budgetRange String?
+  brandKit    Json?    // Brand guidelines, colors, fonts
+  brandType   String?  // Brand type/category
+  targetAudience Json? // Array of target audience types
+  productTypes Json?   // Array of product types
+  onboardingCompleted Boolean @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  products    Product[]
+
+  @@index([userId])
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  brandId     String
+  brand       BrandProfile @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  name        String
+  description String?  @db.Text
+  imagePath   String   // Supabase Storage path (deprecated, use ProductImage)
+  category    String?
+  price       Decimal? @db.Decimal(10, 2)
+  link        String?
+  tags        String?  // Comma-separated tags
+  audience    String?  // Target audience (Men, Women, Unisex, Kids)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  images      ProductImage[]
+  affiliateEvents AffiliateEvent[]
+  favorites   Favorite[]
+  trackedLinks TrackedLink[]  // Masked links for this product
+
+  @@index([brandId])
+  @@index([category])
+  @@index([audience])
+  @@index([createdAt])
+}
+
+model ProductImage {
+  id              String   @id @default(cuid())
+  productId       String
+  product         Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  imagePath       String   // Supabase Storage path
+  order           Int      // Display order (1-5)
+  isTryOnReference Boolean @default(false) // Marks image for AI try-on
+  isCoverImage    Boolean  @default(false) // Marks image as marketplace cover
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([productId])
+  @@index([productId, isCoverImage])
+}
+
+model Favorite {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  
+  @@unique([userId, productId])
+  @@index([userId])
+  @@index([productId])
+}
+
+model GenerationJob {
+  id              String   @id @default(cuid())
+  userId          String   @db.Uuid
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  inputs          Json     // Person image, clothing image, settings
+  settings        Json     // Style presets, background, pose, etc.
+  outputImagePath String?  // Supabase Storage path
+  suggestionsJSON Json?    // AI suggestions
+  status          String   // "pending" | "completed" | "failed"
+  error           String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  feedback        Feedback[]
+
+  @@index([userId, createdAt])
+}
+
+model Campaign {
+  id        String   @id @default(cuid())
+  brandId   String
+  brand     User     @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  title     String
+  brief     String   @db.Text
+  assets    Json     // Array of asset paths
+  metadata  Json?    // Additional campaign data
+  status    String   // "draft" | "active" | "completed"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([brandId])
+  @@index([status])
+}
+
+model AdCreative {
+  id        String   @id @default(cuid())
+  brandId   String
+  brand     User     @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  imagePath String   // Supabase Storage path
+  copy      String?  @db.Text
+  meta      Json?    // Ratings, scores, metadata
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([brandId])
+  @@index([createdAt])
+}
+
+model Portfolio {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type        String   // "tryon" | "ad"
+  imagePath   String   // Supabase Storage path
+  title       String?
+  description String?  @db.Text
+  visibility  Boolean  @default(true)
+  likes       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId, visibility])
+  @@index([createdAt])
+}
+
+model CollaborationRequest {
+  id              String   @id @default(cuid())
+  brandId         String
+  brand           User     @relation("BrandCollaborations", fields: [brandId], references: [id], onDelete: Cascade)
+  influencerId    String
+  influencer      User     @relation("InfluencerCollaborations", fields: [influencerId], references: [id], onDelete: Cascade)
+  message         String   @db.Text
+  proposalDetails Json     // Budget, timeline, goals, etc.
+  status          String   // "pending" | "accepted" | "declined"
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([brandId])
+  @@index([influencerId])
+  @@index([influencerId, status])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      String   // "collab_request" | "collab_accepted" | etc.
+  content   String
+  isRead    Boolean  @default(false)
+  metadata  Json?
+  createdAt DateTime @default(now())
+
+  @@index([userId, isRead])
+  @@index([userId, createdAt])
+  @@index([createdAt])
+}
+
+model Payout {
+  id        String   @id @default(cuid())
+  influencerId String
+  influencer InfluencerProfile @relation(fields: [influencerId], references: [id], onDelete: Cascade)
+  amount    Decimal  @db.Decimal(10, 2)
+  status    String   // "pending" | "paid" | "failed"
+  createdAt DateTime @default(now())
+}
+
+model AffiliateEvent {
+  id          String   @id @default(cuid())
+  influencerId String
+  influencer  InfluencerProfile @relation(fields: [influencerId], references: [id], onDelete: Cascade)
+  productId   String?
+  product     Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  eventType   String   // "click" | "purchase" | "conversion"
+  metadata    Json?
+  createdAt   DateTime @default(now())
+}
+
+model Feedback {
+  id        String   @id @default(cuid())
+  jobId     String
+  job       GenerationJob @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  rating    Int?     // 1-5
+  comment   String?  @db.Text
+  createdAt DateTime @default(now())
+}
+
+// Identity reference images for AI try-on accuracy
+// These are uploaded during onboarding and used automatically for all try-ons
+model IdentityImage {
+  id                String   @id @default(cuid())
+  influencerProfileId String
+  influencerProfile InfluencerProfile @relation(fields: [influencerProfileId], references: [id], onDelete: Cascade)
+  
+  // Image type - determines what angle/pose this image captures
+  imageType         String   // "face_front" | "face_left" | "face_right" | "face_smile" | "body_front" | "body_left" | "body_right"
+  
+  // Storage
+  imagePath         String   // Supabase Storage path
+  imageUrl          String   // Public URL for display
+  
+  // Metadata
+  isActive          Boolean  @default(true)  // Can be disabled if quality is poor
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@unique([influencerProfileId, imageType]) // Only one image per type
+  @@index([influencerProfileId])
+  @@index([influencerProfileId, isActive])
+}
+
+// Masked links for influencer-product tracking
+model TrackedLink {
+  id          String   @id @default(cuid())
+  influencerId String
+  influencer  InfluencerProfile @relation(fields: [influencerId], references: [id], onDelete: Cascade)
+  productId   String
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  originalUrl String   // The product's original link
+  maskedUrl   String   @unique // Full masked URL like tria.app/l/abc123
+  linkCode    String   @unique // Short code (e.g., "abc123")
+  clickCount  Int      @default(0) // Total clicks
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  clicks      LinkClick[] // Individual click records
+
+  @@unique([influencerId, productId]) // One link per influencer-product pair
+  @@index([linkCode])
+  @@index([influencerId])
+  @@index([productId])
+}
+
+// Individual click tracking records
+model LinkClick {
+  id          String   @id @default(cuid())
+  trackedLinkId String
+  trackedLink TrackedLink @relation(fields: [trackedLinkId], references: [id], onDelete: Cascade)
+  ipAddress   String?  // Hashed for privacy
+  userAgent   String?
+  referrer    String?  // Where the click came from
+  deviceType  String?  // "mobile" | "desktop" | "tablet"
+  country     String?
+  clickedAt   DateTime @default(now())
+
+  @@index([trackedLinkId])
+  @@index([clickedAt])
+}

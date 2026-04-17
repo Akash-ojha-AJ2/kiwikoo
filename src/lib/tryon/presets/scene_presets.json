@@ -1,0 +1,213 @@
+{
+    "selfie_friendly": {
+        "id": "selfie_friendly",
+        "name": "Selfie Friendly",
+        "description": "Casual human-shot mirror or phone photos",
+        "camera": {
+            "type": "smartphone",
+            "focal_length_mm": 24,
+            "sensor_noise": "light",
+            "depth_of_field": "deep",
+            "lens_distortion": "subtle_edge_warp"
+        },
+        "constraints": {
+            "face_identity": "LOCK",
+            "body_proportions": "LOCK",
+            "garment_geometry": "LOCK"
+        },
+        "background_density": {
+            "objects": [
+                "mirror edges",
+                "wall hooks",
+                "door frames",
+                "light reflections"
+            ],
+            "people": "none",
+            "imperfections": [
+                "finger smudges",
+                "dust",
+                "uneven lighting"
+            ]
+        }
+    },
+    "standing_pose": {
+        "id": "standing_pose",
+        "name": "Standing Pose",
+        "description": "Neutral full-body standing shots",
+        "camera": {
+            "type": "mirrorless",
+            "focal_length_mm": 35,
+            "tripod": true,
+            "eye_level": true
+        },
+        "constraints": {
+            "face_identity": "LOCK",
+            "body_proportions": "LOCK",
+            "garment_geometry": "LOCK"
+        },
+        "background_density": {
+            "objects": [
+                "chairs",
+                "tables",
+                "windows",
+                "plants"
+            ],
+            "people": "background_blur_optional",
+            "imperfections": [
+                "uneven floor",
+                "shadow overlap"
+            ]
+        }
+    },
+    "walk_motion": {
+        "id": "walk_motion",
+        "name": "Walk Motion",
+        "description": "Natural walking or mid-step frames",
+        "camera": {
+            "type": "handheld",
+            "motion_blur": "micro",
+            "shutter": "1/125"
+        },
+        "constraints": {
+            "face_identity": "LOCK",
+            "body_proportions": "LOCK",
+            "garment_geometry": "LOCK",
+            "pose_change": "allowed",
+            "face_change": "forbidden"
+        },
+        "background_density": {
+            "objects": [
+                "sidewalk texture",
+                "passing silhouettes",
+                "street clutter"
+            ],
+            "people": "soft_blur_only"
+        }
+    },
+    "indoor_natural": {
+        "id": "indoor_natural",
+        "name": "Indoor Natural",
+        "description": "Real apartments or lived-in interiors",
+        "lighting": {
+            "source": "window",
+            "quality": "directional",
+            "temperature_kelvin": 5200,
+            "falloff": "realistic"
+        },
+        "constraints": {
+            "face_identity": "LOCK",
+            "body_proportions": "LOCK",
+            "garment_geometry": "LOCK"
+        },
+        "background_density": {
+            "objects": [
+                "furniture",
+                "wall marks",
+                "frames",
+                "curtains"
+            ],
+            "imperfections": [
+                "paint chips",
+                "uneven brightness"
+            ]
+        }
+    },
+    "casual_outdoor": {
+        "id": "casual_outdoor",
+        "name": "Casual Outdoor",
+        "description": "Everyday outdoor human shots",
+        "lighting": {
+            "sun_position": "angled",
+            "bounce": "ground_reflection",
+            "harshness": "moderate"
+        },
+        "constraints": {
+            "face_identity": "LOCK",
+            "body_proportions": "LOCK",
+            "garment_geometry": "LOCK"
+        },
+        "background_density": {
+            "objects": [
+                "parked vehicles",
+                "signage",
+                "stairs",
+                "plants"
+            ],
+            "people": "distant_only"
+        }
+    },
+    "cafe_lifestyle": {
+        "id": "cafe_lifestyle",
+        "name": "Cafe Lifestyle",
+        "description": "Cafe / lifestyle shots with activity",
+        "lighting": {
+            "mix": [
+                "window_light",
+                "warm_interior"
+            ],
+            "contrast": "medium"
+        },
+        "constraints": {
+            "face_identity": "LOCK",
+            "body_proportions": "LOCK",
+            "garment_geometry": "LOCK"
+        },
+        "background_density": {
+            "objects": [
+                "cups",
+                "chairs",
+                "menus",
+                "tables"
+            ],
+            "people": "out_of_focus_background"
+        }
+    },
+    "balcony_soft": {
+        "id": "balcony_soft",
+        "name": "Balcony Soft",
+        "description": "Balcony or terrace shots",
+        "lighting": {
+            "time": "golden_hour",
+            "direction": "side",
+            "softness": "high"
+        },
+        "constraints": {
+            "face_identity": "LOCK",
+            "body_proportions": "LOCK",
+            "garment_geometry": "LOCK"
+        },
+        "background_density": {
+            "objects": [
+                "railings",
+                "plants",
+                "city blur"
+            ],
+            "people": "none"
+        }
+    },
+    "social_media": {
+        "id": "social_media",
+        "name": "Social Media",
+        "description": "Casual Instagram-like photos",
+        "camera": {
+            "type": "phone",
+            "post_processing": "minimal",
+            "grain": "subtle"
+        },
+        "constraints": {
+            "face_identity": "LOCK",
+            "body_proportions": "LOCK",
+            "garment_geometry": "LOCK"
+        },
+        "background_density": {
+            "objects": [
+                "random clutter",
+                "natural framing"
+            ],
+            "imperfections": [
+                "cropping imbalance",
+                "slight tilt"
+            ]
+        }
+    }
+}

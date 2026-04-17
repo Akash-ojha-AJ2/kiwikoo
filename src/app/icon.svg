@@ -1,0 +1,18 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Kiwikoo Icon</title>
+  <desc id="desc">Rounded K monogram in the Kiwikoo brand palette.</desc>
+  <defs>
+    <linearGradient id="kkBg" x1="18" y1="16" x2="112" y2="114" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFF8EF"/>
+      <stop offset="100%" stop-color="#FFF1D9"/>
+    </linearGradient>
+    <linearGradient id="kkAccent" x1="28" y1="26" x2="100" y2="102" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FF956A"/>
+      <stop offset="100%" stop-color="#B4F056"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="112" height="112" rx="30" fill="url(#kkBg)" stroke="#101114" stroke-width="6"/>
+  <rect x="28" y="24" width="72" height="80" rx="24" fill="url(#kkAccent)" opacity="0.98"/>
+  <path d="M45 38V91M45 66L81 37M45 66L83 92" stroke="#101114" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M83 32C92 28 100 34 98 43C96 51 88 54 81 50" fill="none" stroke="#101114" stroke-width="7" stroke-linecap="round"/>
+</svg>
