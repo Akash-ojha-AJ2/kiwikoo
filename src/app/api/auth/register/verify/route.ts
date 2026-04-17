@@ -42,42 +42,83 @@ export async function POST(request: Request) {
     }
 
     // 2. Perform Scaffolding (Profile creation)
-    // We use service role to ensure it bypasses RLS
-    const { error: profileError } = await service
-      .from('profiles')
-      .upsert(
-        {
-          id: user.id,
-          email,
-          role: normalizedRole,
-          name: username,
-          onboarding_completed: false,
-          approval_status: normalizedRole === 'brand' ? 'approved' : 'pending',
-        },
-        { onConflict: 'id' }
-      )
-
-    if (profileError) {
-      console.error('Profile upsert failed during verify:', profileError)
+    console.log('--- Scaffolding Profile for User:', user.id, '---')
+    
+    const now = new Date().toISOString()
+    const profilePayload = {
+      id: user.id,
+      email,
+      role: normalizedRole.toUpperCase(),
+      name: username,
+      approval_status: normalizedRole === 'brand' ? 'APPROVED' : 'PENDING',
+      createdAt: now,
+      updatedAt: now,
     }
 
+
+
+    const { data: existingProfile } = await service
+      .from('profiles')
+      .select('id')
+      .eq('id', user.id)
+      .maybeSingle()
+
+    let profileError = null
+    if (existingProfile) {
+      console.log('Profile already exists, updating...')
+      const { error } = await service.from('profiles').update(profilePayload).eq('id', user.id)
+      profileError = error
+    } else {
+      console.log('Creating new profile...')
+      const { error } = await service.from('profiles').insert(profilePayload)
+      profileError = error
+    }
+
+    if (profileError) {
+      console.error('CRITICAL: Profile creation failed:', profileError)
+      throw new Error(`Profile creation failed: ${profileError.message}`)
+    }
+
+    // 3. Create Role-Specific Profile
     if (normalizedRole === 'influencer') {
+      console.log('Scaffolding InfluencerProfile...')
       const { error: influencerProfileError } = await service
         .from('InfluencerProfile')
-        .upsert(
-          {
-            userId: user.id,
-            niches: [],
-            socials: {},
-          },
-          { onConflict: 'userId' }
-        )
+        .upsert({
+          id: user.id,
+          userId: user.id,
+          niches: [],
+          socials: {},
+          onboardingCompleted: false,
+          createdAt: now,
+          updatedAt: now,
+        }, { onConflict: 'userId' })
 
       if (influencerProfileError) {
-        console.error('Influencer profile scaffold failed during verify:', influencerProfileError)
+        console.error('CRITICAL: InfluencerProfile failed:', influencerProfileError)
+        throw new Error(`Role profile creation failed: ${influencerProfileError.message}`)
+      }
+    } else if (normalizedRole === 'brand') {
+      console.log('Scaffolding BrandProfile...')
+      const { error: brandProfileError } = await service
+        .from('BrandProfile')
+        .upsert({
+          id: user.id,
+          userId: user.id,
+          companyName: username,
+          onboardingCompleted: false,
+          createdAt: now,
+          updatedAt: now,
+        }, { onConflict: 'userId' })
+
+      if (brandProfileError) {
+        console.error('CRITICAL: BrandProfile failed:', brandProfileError)
+        throw new Error(`Role profile creation failed: ${brandProfileError.message}`)
       }
     }
 
+
+    console.log('Scaffolding completed successfully!')
 
     return NextResponse.json({
       success: true,
@@ -96,3 +137,4 @@ export async function POST(request: Request) {
     )
   }
 }
+

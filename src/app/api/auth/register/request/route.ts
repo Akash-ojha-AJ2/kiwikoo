@@ -37,14 +37,33 @@ export async function POST(request: Request) {
 
     // 2. Extra Safety: Check Supabase Auth directly (if not in profiles)
     const { data: authUser } = await service.auth.admin.listUsers()
-    const emailExistsInAuth = authUser.users.some(u => u.email?.toLowerCase() === email.toLowerCase())
     
+    // Check for Email
+    const emailExistsInAuth = authUser.users.some(u => u.email?.toLowerCase() === email.toLowerCase())
     if (emailExistsInAuth) {
       return NextResponse.json(
         { error: 'This email is already registered. Please sign in.' },
         { status: 409 }
       )
     }
+
+    // Check for Username in Auth Metadata
+    const usernameExistsInAuth = authUser.users.some(u => {
+      const metadata = u.user_metadata || {}
+      return (
+        String(metadata.username || '').toLowerCase() === username.toLowerCase() ||
+        String(metadata.name || '').toLowerCase() === username.toLowerCase() ||
+        String(metadata.full_name || '').toLowerCase() === username.toLowerCase()
+      )
+    })
+
+    if (usernameExistsInAuth) {
+      return NextResponse.json(
+        { error: 'This username is already taken. Please choose another one.' },
+        { status: 409 }
+      )
+    }
+
 
 
 
